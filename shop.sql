@@ -65,23 +65,23 @@ CREATE TABLE `liste_produits` (
 
 
 INSERT INTO `Marques` (`id_Marque`, `marque`, `logo`) VALUES
-(001, 'Nike', 'LogoNike'),
-(002, 'Adidas', 'LogoAdidas'),
-(003, 'Vans', 'LogoVans');
+(1, 'Nike', 'LogoNike'),
+(2, 'Adidas', 'LogoAdidas'),
+(3, 'Vans', 'LogoVans');
 
 
 INSERT INTO `chaussures` (`id_chaussure`, `id_Marque`, `taille`, `couleur`, `prix`, `nom`) VALUES
-(004, 3, 39, 'rouge', 40000, 'Stan_Smith'),
-(005, 1, 32, 'gris', 50000, 'Yezi'),
-(006, 2, 45, 'Jaune', 30000, 'Vansb');
+(1, 3, 39, 'rouge', 40000, 'Stan_Smith'),
+(2, 1, 32, 'gris', 50000, 'Yezi'),
+(3, 2, 45, 'Jaune', 30000, 'Vansb');
 
 
 
 -- Sppression de la Stan_Smith
-DELETE FROM chaussures WHERE id_chaussure = 004;  
+DELETE FROM chaussures WHERE id_chaussure = 3;  
 
 -- mise a jour de la Stan_Smith
-UPDATE chaussures SET nomChaussure = 'Stan_smith02' WHERE id_Chaussure = 004;
+UPDATE chaussures SET nomChaussure = 'Stan_smith02' WHERE id_Chaussure = 3;
 
 -- Liste des marques
 SELECT marque FROM marques;

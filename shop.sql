@@ -2,9 +2,11 @@ CREATE DATABASE shop;
 
 USE shop
 
-CREATE USER 'Fercia'@'localhost' IDENTIFIED BY 'Fercia';
-
 SELECT User, Host FROM mysql.user;
+FLUSH PRIVILLEGES;
+
+CREATE USER 'Fercia'@'localhost' IDENTIFIED BY 'Ferciapassword';
+
 
 CREATE TABLE `clients` (
   `id_Client` int(10) NOT NULL AUTO_INCREMENT,

@@ -1,36 +1,87 @@
+CREATE DATABASE shop;
+
 USE shop
-CREATE TABLE `client` (
-    'id' int PRIMARY KEY NOT NULL,
-    'nom' VARCHAR(50) YES NULL,
-    'prenom' VARCHAR(50) YES NULL;
 
-)ENGINE = Innodb DEFAULT CHARSET = utf8;
+CREATE USER 'Fercia'@'localhost' IDENTIFIED BY 'Fercia';
 
-CREATE TABLE `marque` (
-    'id' int PRIMARY KEY NOT NULL,
-    'nom_de_la_marque' VARCHAR(50) YES NULL,
-    'logo' VARCHAR(50) YES NULL;
-)ENGINE = Innodb DEFAULT CHARSET= utf8;
+SELECT User, Host FROM mysql.user;
 
-CREATE TABLE `chaussure`(
-    'id' int PRIMARY KEY NOT NULL,
-    'couleur' VARCHAR(50) YES NULL,
-    'taille' int YES NULL,
-    'prix' FLOAT YES NULL,
-    'id_marque' VARCHAR(50) YES NULL;
+CREATE TABLE `clients` (
+  `id_Client` int(10) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(200) NOT NULL,
+  `prenom` varchar(100) NOT NULL,
+  `contact` int(11) NOT NULL,
+  `ville` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_Client`)
+) ENGINE=Innodb DEFAULT CHARSET=utf8;
 
-)ENGINE = Innodb DEFAULT CHARSET= utf8;
 
-CREATE TABLE `commande`(
-   'id_commande' VARCHAR(50) YES NULL,
-   'date' DATE YES NULL,
-   'id_client' VARCHAR(50) YES NULL;
+CREATE TABLE `Commandes` (
+  `id_Commande` int(10) NOT NULL AUTO_INCREMENT,
+  `id_Client` int(10) NOT NULL,
+  `date` varchar(10) NOT NULL,
+  PRIMARY KEY (`id_Commande`),
+  INDEX par_ind (`id_Client`),
+    FOREIGN KEY (`id_Client`)
+        REFERENCES clients(`id_Client`)
+        ON DELETE CASCADE
+) ENGINE=Innodb DEFAULT CHARSET=utf8;
 
-)ENGINE = Innodb DEFAULT CHARSET= utf8;
 
-CREATE TABLE `liste_de_produits`(
-    'id_commande' VARCHAR(50) YES NULL,
-    'quantite' int YES NULL,
-    'id_chaussure' VARCHAR YES NULL;
+CREATE TABLE `Marques` (
+  `id_Marque` INT NOT NULL AUTO_INCREMENT,
+  `marque` varchar(50) NOT NULL,
+  `logo` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_Marque`)
+) ENGINE=Innodb DEFAULT CHARSET=utf8;
 
-)ENGINE = Innodb DEFAULT CHARSET= utf8;
+
+CREATE TABLE `chaussures` (
+  `id_chaussure` int(10) NOT NULL AUTO_INCREMENT,
+  `id_Marque` int(10) NOT NULL,
+  `taille` int(2) NOT NULL,
+  `couleur` varchar(50) NOT NULL,
+  `prix` float NOT NULL,
+  `nom_chaussure` varchar(25) NOT NULL,
+  PRIMARY KEY (`i_chaussure`),  
+  INDEX par_ind (`id_Marque`),
+    FOREIGN KEY (`id_Marque`)
+        REFERENCES marques(`id_Marque`)
+        ON DELETE CASCADE
+) ENGINE=Innodb DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `liste_produits` (
+  `id_Commande` int(10) NOT NULL AUTO_INCREMENT,
+  `id_chaussure` int(10) NOT NULL,
+  `quantite` int(3) NOT NULL,
+  PRIMARY KEY (`id_Commande`),
+  INDEX par_ind (`id_chaussure`),
+    FOREIGN KEY (`id_chaussure`)
+        REFERENCES chaussures(`id_Chaussure`)
+        ON DELETE CASCADE
+  
+) ENGINE=Innodb DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `Marques` (`id_Marque`, `marque`, `logo`) VALUES
+(001, 'Nike', 'LogoNike'),
+(002, 'Adidas', 'LogoAdidas'),
+(003, 'Vans', 'LogoVans');
+
+
+INSERT INTO `chaussures` (`id_chaussure`, `id_Marque`, `taille`, `couleur`, `prix`, `nom`) VALUES
+(004, 3, 39, 'rouge', 40000, 'Stan_Smith'),
+(005, 1, 32, 'gris', 50000, 'Yezi'),
+(006, 2, 45, 'Jaune', 30000, 'Vansb');
+
+
+
+-- Sppression de la Stan_Smith
+DELETE FROM chaussures WHERE id_chaussure = 004;  
+
+-- mise a jour de la Stan_Smith
+UPDATE chaussures SET nomChaussure = 'Stan_smith02' WHERE id_Chaussure = 004;
+
+-- Liste des marques
+SELECT marque FROM marques;

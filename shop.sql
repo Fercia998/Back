@@ -5,8 +5,7 @@ USE shop
 SELECT User, Host FROM mysql.user;
 FLUSH PRIVILLEGES;
 
-CREATE USER 'Fercia'@'localhost' IDENTIFIED BY 'Ferciapassword';
-
+CREATE USER 'someuser'@'localhost' IDENTIFIED BY 'somepassword';
 
 CREATE TABLE `clients` (
   `id_Client` int(10) NOT NULL AUTO_INCREMENT,
@@ -45,7 +44,7 @@ CREATE TABLE `chaussures` (
   `couleur` varchar(50) NOT NULL,
   `prix` float NOT NULL,
   `nom_chaussure` varchar(25) NOT NULL,
-  PRIMARY KEY (`i_chaussure`),  
+  PRIMARY KEY (`id_chaussure`),  
   INDEX par_ind (`id_Marque`),
     FOREIGN KEY (`id_Marque`)
         REFERENCES marques(`id_Marque`)
@@ -72,7 +71,7 @@ INSERT INTO `Marques` (`id_Marque`, `marque`, `logo`) VALUES
 (3, 'Vans', 'LogoVans');
 
 
-INSERT INTO `chaussures` (`id_chaussure`, `id_Marque`, `taille`, `couleur`, `prix`, `nom`) VALUES
+INSERT INTO `chaussures` (`id_chaussure`, `id_Marque`, `taille`, `couleur`, `prix`, `nom_chaussure`) VALUES
 (1, 3, 39, 'rouge', 40000, 'Stan_Smith'),
 (2, 1, 32, 'gris', 50000, 'Yezi'),
 (3, 2, 45, 'Jaune', 30000, 'Vansb');
@@ -80,10 +79,10 @@ INSERT INTO `chaussures` (`id_chaussure`, `id_Marque`, `taille`, `couleur`, `pri
 
 
 -- Sppression de la Stan_Smith
-DELETE FROM chaussures WHERE id_chaussure = 3;  
+DELETE FROM chaussures WHERE id_chaussure = 1;  
 
 -- mise a jour de la Stan_Smith
-UPDATE chaussures SET nomChaussure = 'Stan_smith02' WHERE id_Chaussure = 3;
+UPDATE chaussures SET nom_chaussure = 'Stan_smith02' WHERE id_chaussure = 1;
 
 -- Liste des marques
 SELECT marque FROM marques;
